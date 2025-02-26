@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TVShow {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String
+  seasons     Season[]
+}
+
+model Season {
+  id        String   @id @default(cuid())
+  number    Int
+  showId    String
+  show      TVShow   @relation(fields: [showId], references: [id])
+  episodes  Episode[]
+}
+
+model Episode {
+  id        String @id @default(cuid())
+  title     String
+  duration  Int
+  seasonId  String
+  season    Season @relation(fields: [seasonId], references: [id])
+}
