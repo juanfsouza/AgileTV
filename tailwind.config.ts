@@ -9,6 +9,16 @@ export default {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			azonix: [
+  				'Azonix',
+  				'sans-serif'
+  			]
+  		},
+  		backgroundImage: {
+  			'gradient-radial': 'radial-gradient(circle, rgba(15,15,18,0.6727065826330532) 0%, rgba(22,22,27,0.639093137254902) 33%, rgba(26,26,32,1) 100%)',
+  			'gradient-linear': 'linear-gradient(0deg, rgba(20,20,20,1) 39%, rgba(20,20,20,0.18531162464985995) 82%)'
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -59,7 +69,9 @@ export default {
   		animation: {
   			'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
   			'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
-  			shine: 'shine var(--duration) infinite linear'
+  			shine: 'shine var(--duration) infinite linear',
+  			marquee: 'marquee var(--duration) infinite linear',
+  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
   		},
   		keyframes: {
   			'shimmer-slide': {
@@ -90,6 +102,22 @@ export default {
   				},
   				to: {
   					'background-position': '0% 0%'
+  				}
+  			},
+  			marquee: {
+  				from: {
+  					transform: 'translateX(0)'
+  				},
+  				to: {
+  					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			'marquee-vertical': {
+  				from: {
+  					transform: 'translateY(0)'
+  				},
+  				to: {
+  					transform: 'translateY(calc(-100% - var(--gap)))'
   				}
   			}
   		}

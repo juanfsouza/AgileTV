@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@font-face {
+  font-family: "Azonix";
+  src: url("/fonts/Azonix.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -78,13 +94,110 @@
   border-radius: 10px;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+
+/* Estilo para o spinner */
+.loader { 
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid;
+  border-color: #FFF #FFF transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  z-index: 2;
 }
 
+.loader::after,
+.loader::before {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #B52324 #B52324;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
 
+.loader::before {
+  width: 32px;
+  height: 32px;
+  border-color: #FFF #FFF transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
+
+@keyframes rotationBack {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* Estilos para as camadas de carregamento */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.left-panel, .right-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: #000;
+  z-index: 1;
+  transition: transform 1s ease;
+}
+
+/* Movendo as camadas para os lados ao final do carregamento */
+.left-panel {
+  left: 0;
+  transform: translateX(0);
+}
+.right-panel {
+  right: 0;
+  transform: translateX(0);
+}
+
+.loading-screen .left-panel.fade-out {
+  transform: translateX(-100%);
+}
+
+.loading-screen .right-panel.fade-out {
+  transform: translateX(100%);
+}
+
+/* Controlando visibilidade do conteúdo */
+.invisible-content {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.visible-content {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-in;
+}

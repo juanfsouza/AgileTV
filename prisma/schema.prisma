@@ -8,19 +8,63 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
   password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  ratings   Rating[]
+  comments  Comment[]
+  list      MyList[]
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  value     Int
+  userId    String
+  showId    String 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id])
+  tvShow    TVShow   @relation(fields: [showId], references: [id])
+
+  @@unique([userId, showId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  time      DateTime @default(now())
+  userId    String
+  showId    String
+
+  user      User     @relation(fields: [userId], references: [id])
+  tvShow    TVShow   @relation(fields: [showId], references: [id])
+}
+
+model MyList {
+  id        String   @id @default(cuid())
+  userId    String
+  showId    String
+  title     String 
+  imageUrl  String 
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  tvShow    TVShow   @relation(fields: [showId], references: [id])
+  @@unique([userId, showId])
 }
 
 model TVShow {
-  id          String  @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
   description String
   imageUrl    String
   seasons     Season[]
+  ratings     Rating[]
+  comments    Comment[]
+  MyList      MyList[]
 }
 
 model Season {

@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ imageUrl, onClose }) => {
         className="absolute inset-0 bg-cover bg-center bg-blur m-32"
         style={{
           backgroundImage: `url(${imageUrl})`,
-          filter: "blur(8px)", // Efeito de desfoque
+          filter: "blur(8px)",
         }}
       ></div>
 

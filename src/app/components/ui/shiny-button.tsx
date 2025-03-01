@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/app/lib/utils";
 import { motion, MotionProps, type AnimationProps } from "motion/react";
 import React from "react";
 
@@ -30,12 +30,13 @@ interface ShinyButtonProps
     MotionProps {
   children: React.ReactNode;
   className?: string;
+  disabled?: boolean;
 }
 
 export const ShinyButton = React.forwardRef<
   HTMLButtonElement,
   ShinyButtonProps
->(({ children, className, ...props }, ref) => {
+>(({ children, className, disabled, ...props }, ref) => {
   return (
     <motion.button
       ref={ref}
@@ -45,6 +46,7 @@ export const ShinyButton = React.forwardRef<
       )}
       {...animationProps}
       {...props}
+      disabled={disabled}  // Aqui você passa o "disabled" para o botão
     >
       <span
         className="relative block size-full text-sm uppercase tracking-wide text-[rgb(255,255,255)] dark:font-light dark:text-[rgb(255,255,255,90%)]"
