@@ -3,7 +3,9 @@
 import Modal from "./Modal"
 import axios from "axios";
 import Navbar from "@/src/app/components/Navbar";
+import Comments from "@/src/app/components/Comments";
 import StarRating from "@/src/app/components/StarRating";
+import CommentModal from "@/src/app/components/CommentModal";
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +32,7 @@ const fetchEpisodesData = async () => {
   return response.data;
 };
 
-export default function Dashboard() {
+export default function Dashboard({ onShowComments }: { onShowComments: () => void }) {
   const { data: tvShowData, error: tvShowError } = useQuery({
     queryKey: ["tv-show"],
     queryFn: fetchTVShowData,
@@ -52,6 +54,9 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const { myList, setMyList } = useMyListStore();
   const [showRatingPage, setShowRatingPage] = useState(false);
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [showComments, setShowComments] = useState(false);
 
   if (tvShowError || episodesError) return <div>Error: {tvShowError?.message || episodesError?.message}</div>;
 
@@ -88,6 +93,25 @@ export default function Dashboard() {
   if (isLoading) {
     return <div>Carregando...</div>;
   }
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(`/api/comment?showId=${tvShowData?.ID}`);
+        setComments(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar comentários:", error);
+      }
+    };
+  
+    if (tvShowData?.ID) {
+      fetchComments();
+    }
+  }, [tvShowData?.ID]);
+
+  const handleShowComments = () => {
+    setShowComments(true);
+  };
 
   const handleAddToList = async () => {
     setIsLoading(true);
@@ -131,7 +155,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 font-nunito">
+    <div id="home" className="min-h-screen bg-gray-100 font-nunito">
       <Navbar />
   
       <main
@@ -183,7 +207,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-  
           {/* Direita: Botão para alternar visibilidade dos episódios */}
           <div className="flex flex-col items-end md:mt-60 w-full md:w-auto">
             <div className="flex justify-center mb-2">
@@ -222,7 +245,6 @@ export default function Dashboard() {
           </div>
   
           {/* Exibindo os episódios com animação de dropdown */}
-
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -325,7 +347,7 @@ export default function Dashboard() {
                     </div>
                     <div className="flex flex-col items-center">
                       <FaMicrophone className="text-white" size={20} />
-                      <ShinyButton>Comentar</ShinyButton>
+                      <ShinyButton onClick={() => setShowCommentModal(true)}>Comentar</ShinyButton>
                     </div>
                     <div className="flex flex-col items-center">
                       <FaShareAlt className="text-white" size={20} />
@@ -341,13 +363,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               )}
-              {/* Modal de Avaliação */}
-              {showRatingPage && tvShowData?.ID && (
-                <StarRatingModal
-                  showId={tvShowData.ID}
-                  onClose={() => setShowRatingPage(false)}
-                />
-              )}
+          
               {/* Aba Elenco */}
               {selectedTab === "Elenco" && (
                 <div className="mt-4 md:mt-6 relative">
@@ -437,9 +453,29 @@ export default function Dashboard() {
                 </div>
               )}
             </div>
-          </div>
-  
+          </div>  
         </main>
+
+      {/* Modal de Comentário */}
+      {showCommentModal && (
+        <CommentModal
+          showId={tvShowData?.ID}
+          onClose={() => setShowCommentModal(false)}
+          onShowComments={handleShowComments}
+        />
+      )}
+
+      {/* Exibir Comentários */}
+      {showComments && <Comments />}
+
+        {/* Modal de Avaliação */}
+        {showRatingPage && tvShowData?.ID && (
+          <StarRatingModal
+            showId={tvShowData.ID}
+            onClose={() => setShowRatingPage(false)}
+          />
+        )}
+
         {/* Exibindo o Modal se o estado showModal for verdadeiro */}
         {showModal && modalEpisode && (
           <Modal
@@ -447,6 +483,9 @@ export default function Dashboard() {
             onClose={closeModal}
           />
         )}
+        <div className="fixed bottom-0 left-0 w-full bg-black/20 text-gray-800 text-center py-2 hover:text-gray-600 cursed-pointer">
+          JSF feito com carinho s2
+        </div>
       </div>
     );
   }

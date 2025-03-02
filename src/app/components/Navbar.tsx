@@ -112,28 +112,28 @@ export default function Header() {
             </li>
             <li className="group relative">
               <button
-                onClick={() => scrollToSection("about")}
+                onClick={() => scrollToSection("movies")}
                 className="text-slate-300 hover:text-white transition-all"
               >
-                Sobre
+                Filems
               </button>
               <span className="absolute bottom-0 left-0 h-1 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
             </li>
             <li className="group relative">
               <button
-                onClick={() => scrollToSection("projects")}
+                onClick={() => scrollToSection("series")}
                 className="text-slate-300 hover:text-white transition-all"
               >
-                Projetos
+                Series
               </button>
               <span className="absolute bottom-0 left-0 h-1 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
             </li>
             <li className="group relative">
               <button
-                onClick={() => scrollToSection("contacts")}
+                onClick={() => scrollToSection("footer")}
                 className="text-slate-300 hover:text-white transition-all"
               >
-                Contato
+                Contatos
               </button>
               <span className="absolute bottom-0 left-0 h-1 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
             </li>
@@ -168,7 +168,7 @@ export default function Header() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="absolute mt-2 w-48 bg-zinc-800 rounded-md shadow-lg overflow-hidden z-50"
+                className="absolute mt-2 w-44 md:w-72 bg-zinc-800 rounded-md shadow-lg overflow-hidden z-50"
               >
                 <p className="px-4 py-2 text-white font-bold border-b border-gray-700 text-center">
                   Minha Lista

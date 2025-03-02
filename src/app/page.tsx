@@ -1,11 +1,13 @@
 "use client";
+
 import Hero from "./components/Hero";
-import About from "./components/About";
+import Comments from "./components/Comments";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [showSpinner, setShowSpinner] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     const spinnerTimer = setTimeout(() => {
@@ -42,8 +44,8 @@ export default function Home() {
         </div>
       )}
 
-      <Hero />
-      <About />
+      <Hero onShowComments={() => setShowComments(true)} />
+      {showComments && <Comments />}
     </div>
   );
 }

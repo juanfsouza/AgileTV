@@ -24,7 +24,7 @@ export const api = {
   },
 
   async getUserData(userId: string, token: string) {
-    const res = await fetch(`${API_URL}/users/${userId}`, { // 🔥 Corrigido aqui!
+    const res = await fetch(`${API_URL}/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
