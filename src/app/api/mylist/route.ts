@@ -28,7 +28,7 @@ export async function POST(request: Request) {
         data: {
           id: showId,
           title,
-          description: "Descrição padrão", // Adicione uma descrição padrão ou peça ao frontend para enviar
+          description: "Descrição padrão",
           imageUrl,
         },
       });
@@ -51,11 +51,11 @@ export async function POST(request: Request) {
       data: {
         userId,
         showId,
-        title,       // Campo obrigatório
-        imageUrl,    // Campo obrigatório
+        title,
+        imageUrl,
       },
       include: {
-        tvShow: true, // Incluir os dados do TVShow
+        tvShow: true,
       },
     });
 

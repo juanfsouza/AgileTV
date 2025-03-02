@@ -336,7 +336,7 @@ export default function Dashboard({ onShowComments }: { onShowComments: () => vo
                   <div className="flex items-center gap-0 md:gap-0">
                     <div className="flex flex-col items-center">
                       <FaList className="text-white" size={20} />
-                      <ShinyButton onClick={handleAddToList}>
+                      <ShinyButton>
                         Minha Lista
                       </ShinyButton>
                     </div>
