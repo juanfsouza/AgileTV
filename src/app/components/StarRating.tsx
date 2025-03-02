@@ -93,7 +93,7 @@ export default function StarRating({ showId, readOnly = false }: StarRatingProps
           } else if (index === fullStars && partialStar > 0) {
             return (
               <div key={index} style={{ position: "relative", display: "inline-block" }}>
-                <FaStar size={20} className="text-gray-400" />
+                <FaStar size={25} className="text-gray-400" />
                 <div
                   style={{
                     position: "absolute",
@@ -103,7 +103,7 @@ export default function StarRating({ showId, readOnly = false }: StarRatingProps
                     overflow: "hidden",
                   }}
                 >
-                  <FaStar size={20} className="text-yellow-400" />
+                  <FaStar size={25} className="text-yellow-400" />
                 </div>
               </div>
             );

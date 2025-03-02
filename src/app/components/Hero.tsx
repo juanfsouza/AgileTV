@@ -139,13 +139,14 @@ export default function Dashboard({ onShowComments }: { onShowComments: () => vo
   
       if (response.ok) {
         const newItem = await response.json();
-  
         setMyList([...myList, newItem]);
-  
         alert("Filme adicionado à sua lista!");
       } else {
         const data = await response.json();
         setError(data.message || "Erro ao adicionar à lista");
+        if (data.message === "Filme já está na sua lista") {
+          alert("Este filme já está na sua lista!");
+        }
       }
     } catch (error) {
       setError("Erro ao adicionar à lista");
