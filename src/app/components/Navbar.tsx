@@ -115,7 +115,7 @@ export default function Header() {
                 onClick={() => scrollToSection("movies")}
                 className="text-slate-300 hover:text-white transition-all"
               >
-                Filems
+                Filmes
               </button>
               <span className="absolute bottom-0 left-0 h-1 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
             </li>
