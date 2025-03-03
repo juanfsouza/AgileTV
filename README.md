@@ -26,15 +26,15 @@ Antes de começar, certifique-se de ter instalado:
 - Git
 - PostgreSQL (ou outro banco de dados suportado pelo Prisma)
 
-### Passos para Instalação
-Clone o repositório:
+## Passos para Instalação
+### Clone o repositório:
 
 ```bash
 git clone https://github.com/juanfsouza/AgileTV.git
 cd AgileTV
 ```
 
-Instale as dependências:
+### Instale as dependências:
 ```bash
 npm install
 ```
@@ -43,12 +43,12 @@ Configure o banco de dados:
 
 Crie um banco de dados PostgreSQL.
 
-Configure as variáveis de ambiente no arquivo .env:
+### Configure as variáveis de ambiente no arquivo .env:
 ```bash
 DATABASE_URL="postgresql://USUARIO:SENHA@localhost:5432/NOME_DO_BANCO"
 ```
 
-Execute as migrações do Prisma:
+### Execute as migrações do Prisma:
 
 ```bash
 npx prisma migrate dev --name init
@@ -57,13 +57,13 @@ Popule o banco de dados (opcional):
 
 Se necessário, execute scripts ou comandos para popular o banco de dados com dados iniciais.
 
-Inicie o servidor de desenvolvimento:
+### Inicie o servidor de desenvolvimento:
 
 ```bash
 npm run dev
 ```
 
-Abra o navegador e acesse:
+### Abra o navegador e acesse:
 
 ```bash
 http://localhost:3000
