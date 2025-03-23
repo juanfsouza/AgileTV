@@ -7,7 +7,6 @@
 </div>
 
 ### Documentação do Projeto
-Visão Geral
 Este projeto é uma aplicação web desenvolvida com Next.js que permite gerenciar e exibir informações sobre séries de TV. Ele utiliza várias bibliotecas modernas para garantir uma experiência de usuário fluida e uma arquitetura robusta.
 
 ### Principais Funcionalidades
